@@ -1,6 +1,6 @@
 const assert = require('assert')
-const PostgresStrategy = require('./src/strategies/postgres/PostgresStrategy')
-const ContextStrategy = require("./src/strategies/ContextStrategy")
+const PostgresStrategy = require('../strategies/postgres/PostgresStrategy')
+const ContextStrategy = require("../strategies/ContextStrategy")
 
 const GAME_CRIAR_MOCK = {
     'nome': 'Mortal Kombat XI',

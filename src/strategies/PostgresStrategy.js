@@ -1,4 +1,4 @@
-const InterfaceCrud = require('../../db/interface/InterfaceCrud')
+const InterfaceCrud = require('../db/interface/InterfaceCrud')
 const Sequelize = require('sequelize')
 
 // host, dialect, quoteIdentifiers, operatorAliases 
