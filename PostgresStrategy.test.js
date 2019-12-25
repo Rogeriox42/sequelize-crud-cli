@@ -12,8 +12,6 @@ const GAME_ATUALIZAR_MOCK = {
     'genero': 'Survival Horror' 
 }
 
-GAME_MOCK_DELETAR_ID = 6 
-
 describe('PostresStrategy Test', function () {
     const context = new ContextStrategy(new PostgresStrategy())
     
@@ -21,14 +19,10 @@ describe('PostresStrategy Test', function () {
         await context.create(GAME_ATUALIZAR_MOCK) 
     })
     
-    
-    
     it('Connection Test', async () => {
         const result = await context.isConnected()
         assert.equal(result, true)
     })
-
-
 
     it('Create Game', async () =>{
         // let result = {}
@@ -38,24 +32,26 @@ describe('PostresStrategy Test', function () {
     })
 
     it('List Game', async () =>{
-        const result = await context.read(GAME_CRIAR_MOCK.nome)
+        const result = await context.read({'nome': GAME_CRIAR_MOCK.nome})
         delete result.id 
         assert.deepEqual(result, GAME_CRIAR_MOCK) 
     })
 
-    it.only('Update Games', async () =>{
+    it('Update Games', async () =>{
         const item = await context.read({'nome': GAME_ATUALIZAR_MOCK.nome})
         const newData = {
             ... GAME_ATUALIZAR_MOCK, 
             nome: 'Silent Hill'
         }
-
         const [result] = await context.update(item.id, newData)
+        const itemAtualizado = await context.read({id: item.id}) 
+        assert.deepEqual(itemAtualizado.nome, newData.nome) 
         assert.deepEqual(result, 1)
     })
 
-    // it('Delete Game', async () =>{
-    //     const result = await context.delete(GAME_MOCK_DELETAR_ID) 
-    //     assert.deepEqual(result, true) 
-    // })
+    it('Delete Game', async () =>{
+        const item = await context.read() 
+        const result = await context.delete(item.id) 
+        assert.deepEqual(result, true) 
+    })
 })

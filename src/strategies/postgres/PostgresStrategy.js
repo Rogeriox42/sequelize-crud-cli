@@ -17,14 +17,14 @@ class PostgresStrategy extends InterfaceCrud {
     }
 
     async delete(id){
-        return await this._banco.destroy({where: {'id': id}})
+        const query = id ? {id: id} : {} 
+        return await this._banco.destroy({where: query})
     }
     
     async read(query = {}){
         // console.log('nome', nome) 
         const [{dataValues}] = await this._banco.findAll({where: query, rawQuery: true})
-        const result = dataValues
-        return result
+        return dataValues
     }
 
     async update(id, item){
