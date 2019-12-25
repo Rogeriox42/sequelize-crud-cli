@@ -59,16 +59,20 @@ class PostgresStrategy extends InterfaceCrud {
                 id: {
                     type: Sequelize.INTEGER,
                     required: true,
-                    autoIncrement: true,
+                    autoIncrement: true, 
                     primaryKey: true
                 },
-                nome: {
+                name: {
                     type: Sequelize.INTEGER,
                     required: true
                 },
-                genero: {
+                genre: {
                     type: Sequelize.INTEGER,
                     required: true
+                }, 
+                price: {
+                    type: Sequelize.FLOAT,
+                    required: true 
                 }
             },
             {

@@ -1,14 +1,11 @@
-class Game{
-    constructor(){
-        this.name = null 
-        this.genre = null
-        this.price = null 
-    }
+const uuid = require('uuid/v1')
 
-    constructor(name, genre, price){
+class Game{
+    constructor({name, genre, price}){
+        // this.id = id ? id : uuid() 
         this.name = name, 
         this.genre = genre
-        this.price = price  
+        this.price = parseFloat(price)
     }
 }
 
