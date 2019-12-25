@@ -16,6 +16,9 @@ class ContextStrategy extends InterfaceCrud{
     read(query){
         return this._database.read(query) 
     }
+    readAll(){
+        return this._database.readAll() 
+    }
     update(id, item){
         return this._database.update(id, item) 
     }

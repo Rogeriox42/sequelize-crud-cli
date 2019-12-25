@@ -10,6 +10,8 @@ async function main(params) {
         .option('-r, --read', 'Read a game')
         .option('-u, --update', 'Update a game')
         .option('-d, --delete', 'Delete a game')
+        .option('-ra, --readall', 'Read all the games') 
+
         .option('-i, --id [value]', 'ID of the game')
         .option('-n, --name [value]', 'Name of the game')
         .option('-g, --genre [value]', 'Genre of the Game')
@@ -21,23 +23,44 @@ async function main(params) {
 
     try {
         if (Commander.create) {
-            console.log('Create a game')
-            console.log('game', game)
             const result = await context.create(game)
-            if(!result){
-                console.log('Problems during game creation') 
+            if (!result) {
+                console.log('Problems during game creation')
             }
-            console.log('Game created Successfully') 
+            console.log(`The game ${game.name} was created successfully!`)
         }
+
         if (Commander.read) {
-            
+            const id = parseInt(Commander.id)
+            const item = await context.read({ id: id })
+            console.log('Game info: ', item)
         }
+
+        if(Commander.readall){
+            const items = await context.readAll()
+            console.log('items', items) 
+            // items.map( item => console.log(item)) 
+        }
+
         if (Commander.update) {
-
+            const id = parseInt(Commander.id)
+            const result = await context.update(id, game)
+            if (!result) {
+                console.log('Problems during game update')
+            }
+            console.log(`The game ${game.name} was updated successfully!`)
         }
+
         if (Commander.delete) {
-
+            const id = parseInt(Commander.id)
+            const item = await context.read({ id: id })
+            const result = await context.delete(id) 
+            if (!result) {
+                console.log('Problems during game exclusion')
+            }
+            console.log(`The game ${item.name} was deleted successfully!`)
         }
+
     } catch (Error) {
         console.log('Error', Error)
     }

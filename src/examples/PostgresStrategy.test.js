@@ -1,15 +1,17 @@
 const assert = require('assert')
-const PostgresStrategy = require('../strategies/postgres/PostgresStrategy')
+const PostgresStrategy = require('../strategies/PostgresStrategy')
 const ContextStrategy = require("../strategies/ContextStrategy")
 
 const GAME_CRIAR_MOCK = {
-    'nome': 'Mortal Kombat XI',
-    'genero': 'Luta'
+    'name': 'Mortal Kombat XI',
+    'genre': 'Luta',
+    'price': null
 }
 
 const GAME_ATUALIZAR_MOCK = {
-    'nome': 'Resident Evil 2 Remake', 
-    'genero': 'Survival Horror' 
+    'name': 'Resident Evil 2 Remake', 
+    'genre': 'Survival Horror', 
+    'price': null
 }
 
 describe('PostresStrategy Test', function () {
@@ -32,20 +34,20 @@ describe('PostresStrategy Test', function () {
     })
 
     it('List Game', async () =>{
-        const result = await context.read({'nome': GAME_CRIAR_MOCK.nome})
+        const result = await context.read({'name': GAME_CRIAR_MOCK.name})
         delete result.id 
         assert.deepEqual(result, GAME_CRIAR_MOCK) 
     })
 
     it('Update Games', async () =>{
-        const item = await context.read({'nome': GAME_ATUALIZAR_MOCK.nome})
+        const item = await context.read({'name': GAME_ATUALIZAR_MOCK.name})
         const newData = {
             ... GAME_ATUALIZAR_MOCK, 
-            nome: 'Silent Hill'
+            name: 'Silent Hill'
         }
         const [result] = await context.update(item.id, newData)
         const itemAtualizado = await context.read({id: item.id}) 
-        assert.deepEqual(itemAtualizado.nome, newData.nome) 
+        assert.deepEqual(itemAtualizado.name, newData.name) 
         assert.deepEqual(result, 1)
     })
 

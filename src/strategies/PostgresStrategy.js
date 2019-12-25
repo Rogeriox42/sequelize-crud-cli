@@ -47,7 +47,8 @@ class PostgresStrategy extends InterfaceCrud {
             host: 'localhost',
             dialect: 'postgres',
             quoteIdentifiers: false,
-            operatorAliases: false
+            operatorAliases: false, 
+            logging: false
         })
 
         await this._modelDatabase() 
