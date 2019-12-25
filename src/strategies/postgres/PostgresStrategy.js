@@ -20,11 +20,16 @@ class PostgresStrategy extends InterfaceCrud {
         return await this._banco.destroy({where: {'id': id}})
     }
     
-    async read(nome = {}){
-        console.log('nome', nome) 
-        const [{dataValues}] = await this._banco.findAll({where: {'nome': nome}, rawQuery: true})
+    async read(query = {}){
+        // console.log('nome', nome) 
+        const [{dataValues}] = await this._banco.findAll({where: query, rawQuery: true})
         const result = dataValues
         return result
+    }
+
+    async update(id, item){
+        const result = await this._banco.update( item, { where:{id: id}} )
+        return result 
     }
 
     async isConnected(){
