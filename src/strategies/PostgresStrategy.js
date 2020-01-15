@@ -1,5 +1,14 @@
 const InterfaceCrud = require('../db/interface/InterfaceCrud')
 const Sequelize = require('sequelize')
+const dotenv = require('dotenv').config()
+
+const DBNAME = process.env.DBNAME || '' 
+const USER = process.env.USER 
+const PWD = process.env.PASSWORD
+
+// console.log('dbname', DBNAME) 
+// console.log('USER', USER) 
+// console.log('PWD', PWD) 
 
 // host, dialect, quoteIdentifiers, operatorAliases 
 
@@ -43,7 +52,9 @@ class PostgresStrategy extends InterfaceCrud {
     }
 
     async _connect() {
-        this._driver = new Sequelize('heroes', 'rogeriorodrigues', 'senhasupersecreta', {
+        // this._driver = new Sequelize('heroes', 'rogeriorodrigues', 'senhasupersecreta', {
+        // this._driver = new Sequelize('herois', 'postgres', 'masterpwd', {
+        this._driver = new Sequelize(DBNAME, USER, PWD, {
             host: 'localhost',
             dialect: 'postgres',
             quoteIdentifiers: false,
@@ -64,11 +75,11 @@ class PostgresStrategy extends InterfaceCrud {
                     primaryKey: true
                 },
                 name: {
-                    type: Sequelize.INTEGER,
+                    type: Sequelize.STRING,
                     required: true
                 },
                 genre: {
-                    type: Sequelize.INTEGER,
+                    type: Sequelize.STRING,
                     required: true
                 }, 
                 price: {
@@ -77,7 +88,7 @@ class PostgresStrategy extends InterfaceCrud {
                 }
             },
             {
-                tableName: 'TB_GAMES',
+                tableName: 'game',
                 freezeTableName: false,
                 timestamps: false
             }

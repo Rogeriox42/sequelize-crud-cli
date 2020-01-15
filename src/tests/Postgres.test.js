@@ -5,13 +5,13 @@ const ContextStrategy = require("../strategies/ContextStrategy")
 const GAME_CRIAR_MOCK = {
     'name': 'Mortal Kombat XI',
     'genre': 'Luta',
-    'price': null
+    'price': 50
 }
 
 const GAME_ATUALIZAR_MOCK = {
     'name': 'Resident Evil 2 Remake', 
     'genre': 'Survival Horror', 
-    'price': null
+    'price': 40
 }
 
 describe('PostresStrategy Test', function () {
